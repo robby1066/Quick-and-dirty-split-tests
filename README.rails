@@ -1,0 +1,23 @@
+Quick and dirty split tests for rails 3
+- note: you need to be using Google Analytics to see the results of these tests
+
+Usage:
+place split_test_helper.rb in your helpers directory
+
+In your views:
+
+Define a test:
+<%
+  split_test('my_test',['control', 'variation1', 'variation2'])
+%>
+
+Get a test variation:
+<% variation = get_split_variation('my_test')
+
+Show content conditionally:
+<%= is_split_variation?('my_test', 'variation2') do -%>
+  <h3>This is the control variation</h3>
+<% end -%>
+
+Track the split as a custom variable in Google Analytics:
+<%=raw track_split_with_google_analytics('my_test', 3) -%>

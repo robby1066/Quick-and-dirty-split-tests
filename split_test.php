@@ -72,11 +72,9 @@ class SplitTest {
    *  @return a google analytics tracking event string
    */
   public static function trackWithGoogleAnalytics($testname, $slotNumber = 1) {
-    $gaTrackingSnippet = '';
     if (isset(self::$_splitTestData[$testname])) {
-      $gaTrackingSnippet = '<script type="text/javascript"> var _gaq = _gaq || []; _gaq.push(["_setCustomVar", '. $slotNumber .', "ab_' .  $testname . '", "' . self::$_splitTestData[$testname] . '", 1]); </script>';  
+      return '<script type="text/javascript"> var _gaq = _gaq || []; _gaq.push(["_setCustomVar", '. $slotNumber .', "ab_' .  $testname . '", "' . self::$_splitTestData[$testname] . '", 1]); </script>';  
     }
-    return $gaTrackingSnippet;
   }
   
 }
