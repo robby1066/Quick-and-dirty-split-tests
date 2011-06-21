@@ -12,10 +12,10 @@ Define a test:
 %>
 
 Get a test variation:
-<% variation = get_split_variation('my_test')
+<% variation = get_split_variation('my_test') %>
 
 Show content conditionally:
-<%= is_split_variation?('my_test', 'variation2') do -%>
+<%= has_split_variation?('my_test', 'variation2') do -%>
   <h3>This is the control variation</h3>
 <% end -%>
 

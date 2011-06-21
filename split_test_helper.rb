@@ -37,7 +37,7 @@ module SplitTestHelper
   end
   
   # render a block if the visitor is viewing variation_name for test_name
-  def is_split_variation?(test_name, variation_name, &block)
+  def has_split_variation?(test_name, variation_name, &block)
     if get_split_variation(test_name) == variation_name
       capture(&block)
     end
