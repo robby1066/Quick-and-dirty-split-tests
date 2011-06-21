@@ -1,4 +1,6 @@
 Quick and dirty split tests for rails 3
+by: Robby Macdonell
+
 - note: you need to be using Google Analytics to see the results of these tests
 
 Usage:
