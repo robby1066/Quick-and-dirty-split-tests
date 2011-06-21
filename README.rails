@@ -21,3 +21,11 @@ Show content conditionally:
 
 Track the split as a custom variable in Google Analytics:
 <%=raw track_split_with_google_analytics('my_test', 3) -%>
+
+
+To review the results in Google Analytics:
+Go to: Content -> Custom Variables -> look for your test name
+   - You'll be able to see site-wide metrics like time on site, bounce rate, pageviews, etc
+   - You'll be able to see ecommerce data if you have that set up.
+   
+To track more page specific actions, read up on Goals in Google Analytics.
