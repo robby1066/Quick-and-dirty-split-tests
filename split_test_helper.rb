@@ -15,7 +15,6 @@ module SplitTestHelper
 	      current_variation = variations.sample
       end
     end
-    puts "## SETTING COOKIE FOR: #{current_variation}"
     cookies["split_#{test_name}"] = { :value => current_variation, :expires => 2.weeks.from_now, :domain => '/' }
   
     SplitTestHelper::SplitData[test_name] = current_variation
