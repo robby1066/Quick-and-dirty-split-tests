@@ -27,8 +27,6 @@ module SplitTestHelper
       SplitTestHelper::SplitData[test_name]
     elsif !cookies["split_#{test_name}"].nil?
       cookies["split_#{test_name}"]
-    else
-      cookies.inspect
     end
   end
   
