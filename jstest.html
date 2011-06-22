@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Split-test test page: javascript</title>
+    <script type="text/javascript" src="split_test.js"></script>
+  	<script type="text/javascript">
+  		var page_test = new SplitTest('test_page', ['control', 'variation1', 'variation2']);
+  		window.onload = function() {
+  			document.getElementsByTagName('body')[0].className = page_test.get_variation();
+  		}
+  	</script>
+    <style>
+      /* ==== set up conditional classes for the three variations we've chosen ==== */
+      BODY .control,
+      BODY .variation1,
+      BODY .variation2 {
+        display: none;
+      }
+      
+      
+      BODY {
+        background: #fff;
+        font-family: Georgia, serif;
+        padding-bottom: 100px;
+      }
+        DIV#container {
+          margin: 0px auto;
+          width: 800px;
+        }
+      BODY.variation1 {
+        background: #aaa;
+        font-family: Arial, sans;
+      }
+        BODY.variation1 .variation1 {
+          display: block;
+        }
+        BODY.variation1 DIV.container {
+          width: 1024px;
+        }
+      BODY.variation2 {
+        background: #666;
+        color: #fff;
+        font-family: Courier, monospace;
+      }
+        BODY.variation2 .variation2 {
+          display: block;
+        }
+        BODY.variation2 A,
+        BODY.variation2 A:visited {
+          color: #eaeaea;
+        }
+        BODY.variation2 DIV.container {
+          width: 1024px;
+        }
+      
+      BODY.control .control {
+        display: block;
+      }
+        
+      CODE {
+        font-family: monospace;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background: #fff;
+        color: #444;
+        display: block;
+        overflow-x: scroll;
+        white-space: nowrap;
+      }
+      DIV.conditional-demo-block {
+        width: 600px;
+        padding: 10px 25px;
+        border: 2px dotted #999;
+        margin: auto;
+        background: #fec884;
+      }
+    </style>
+  </head>
+  <body class="">
+    <div id="container">
+      <h1>Super Simple Split Tests for <em>Javascript</em></h1>
+      <p><strong>Disclaimer:</strong> I don't really think client-side split tests are a terribly good idea, but if you need to test something small, it should work ok.</p>
+      <div class="conditional-demo-block">
+        <h3 class="variation1">You're looking at Variation One! Use the links below to switch.</h3>
+        <p class="variation2">This is variation two. Click below to see the others.</p>
+        <p  class="control">This is the control variation. Use the links below to see the other variations.</p>
+      </div>
+      <p>You should be able to reload this over and over and see the exact same things.</p>
+      <h2>How a visitor gets into a variation</h2>
+      <p>In the simplest version, visitors are placed into a random variation. You may also pass a numeric user id in as the third argument to the <em>split</em> function. If you do that, the split will be the remainder of user_id divided by <em>count(variations)</em>. This is a nice option if you have return users that might use different browsers. Note that this can become problematic if you're running a lot of tests at once. Say you're running three tests, each one is a 50/50 split. If you use user-ids, All users in the control group of the first test will also be in the control group of tests two and three. This can make it really hard to know which tests are performing well.</p>
+      <h2>Switching between variations</h2>
+      <p>Once a user is in a variation, they stay there until the cookie expires or is cleared out. You can manually force yourself into a test bucket by putting <em>testname=variationname</em> in the querystring of a page that the split function is called on. Here, try it out:</p>
+      <ul>
+        <li><a href="?test_page=control">switch to the control variation</a></li>
+        <li><a href="?test_page=variation1">switch to variation1</a></li>
+        <li><a href="?test_page=variation2">switch to variation2</a></li>
+      </ul>
+      <h2>Conditional content</h2>
+      <p>Conditional content in javascript is tricky. You pretty much have to load all the content onto the page in one form or another. An easy way I've found is to give variation specific class names to the elements you want to show or hide (.control, .variation1, etc), hide them by default with css, then conditionally show them via a class added to the body element. Yeah, it's sort of messy, but that's why these are quick and dirty split tests. :)</p>
+      
+      <code>
+&nbsp;&nbsp;var page_test = new SplitTest('page_test', ['control', 'variation1', 'variation2']);<br/><br/>
+&nbsp;&nbsp;window.onload = function() {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;document.getElementsByTagName('body')[0].className = page_test.get_variation();<br/>
+&nbsp;&nbsp;}<br/>
+      </code>
+      <h2>Tracking the results in Google Analytics</h2>
+      <p>You must be using Google Analytics to track the results of your tests*. At the bottom of the page (immediately before your Google Analytics snippet), place this code:</p>
+      <code>
+&nbsp;&nbsp;page_test.track_with_google_analytics(3);<br/>
+      </code>
+      <p>This will set what's called a <a href="http://code.google.com/apis/analytics/docs/tracking/gaTrackingCustomVariables.html" target="_blank">custom variable</a> in Google Analytics. You can then use that to see how the different test groups compare against each other.</p>
+    </div>
+  </body>
+</html>
